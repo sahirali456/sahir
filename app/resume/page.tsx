@@ -12,21 +12,12 @@ export default function SahirAliPortfolio() {
         <Head>
           <title>Sahir Ali - Portfolio</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          />
         </Head>
 
-        <div className="font-[Inter]">
+        <div>
           <div className="container mx-auto p-4 sm:p-8 max-w-6xl">
             <div className="bg-white shadow-2xl rounded-2xl overflow-hidden relative">
-              
-              {/* Updated Save as PDF Button */}
+              {/* Save as PDF Button */}
               <a
                 href="/sahir-cv.pdf"
                 download
@@ -39,8 +30,6 @@ export default function SahirAliPortfolio() {
               <div className="md:flex">
                 {/* Left Column */}
                 <div className="w-full md:w-1/3 bg-gray-800 p-8 text-white">
-                  
-
                   <div className="mt-10">
                     <h2 className="text-xl font-semibold border-b-2 border-gray-500 pb-2 mb-4">
                       Contact
@@ -121,14 +110,16 @@ export default function SahirAliPortfolio() {
                         E-Commerce & IT
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {["Python", "C","C++","Openai Agent SDK", "Wordpress"].map((skill) => (
-                          <span
-                            key={skill}
-                            className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full"
-                          >
-                            {skill}
-                          </span>
-                        ))}
+                        {["Python", "C", "C++", "Openai Agent SDK", "Wordpress"].map(
+                          (skill) => (
+                            <span
+                              key={skill}
+                              className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full"
+                            >
+                              {skill}
+                            </span>
+                          )
+                        )}
                       </div>
                     </div>
                   </section>

@@ -42,8 +42,14 @@ const cards = [
   },
 ];
 
+type SelectedType = {
+  image: string;
+  link: string;
+  title: string;
+} | null;
+
 const Certificates: React.FC = () => {
-  const [selected, setSelected] = useState<{ image: string; link: string } | null>(null);
+  const [selected, setSelected] = useState<SelectedType>(null);
 
   return (
     <div id="certificates" className="relative min-h-screen w-full overflow-x-hidden text-white">
@@ -65,7 +71,9 @@ const Certificates: React.FC = () => {
               className="bg-white/10 backdrop-blur-sm shadow-xl hover:scale-105 flex flex-col border border-red-500/20 rounded-lg p-6 hover:border-red-500/40 transform hover:-translate-y-1 transition-all duration-300"
             >
               <div
-                onClick={() => setSelected({ image: card.image, link: card.link })}
+                onClick={() =>
+                  setSelected({ image: card.image, link: card.link, title: card.title })
+                }
                 className="relative w-full h-52 mb-4 overflow-hidden rounded-md cursor-pointer"
               >
                 <Image
@@ -81,7 +89,9 @@ const Certificates: React.FC = () => {
               <p className="text-sm text-white/80 mb-4">{card.description}</p>
 
               <button
-                onClick={() => setSelected({ image: card.image, link: card.link })}
+                onClick={() =>
+                  setSelected({ image: card.image, link: card.link, title: card.title })
+                }
                 className="mt-auto bg-gradient-to-r from-red-500 to-pink-500 hover:bg-pink-600 text-white font-medium px-4 py-2 rounded-lg transition"
               >
                 View Certificate
@@ -104,17 +114,21 @@ const Certificates: React.FC = () => {
             <button
               onClick={() => setSelected(null)}
               className="absolute top-3 right-4 text-white text-3xl font-bold"
+              aria-label="Close modal"
             >
               &times;
             </button>
-            <img
+
+            <Image
               src={selected.image}
-              alt="Certificate Zoomed"
-              className="max-h-[80vh] w-auto mx-auto rounded-xl shadow-lg mb-4"
+              alt={`Certificate - ${selected.title}`}
+              width={800}
+              height={600}
+              className="mx-auto rounded-xl shadow-lg mb-4 object-contain"
             />
+
             <a
               href={selected.link}
-              download
               target="_blank"
               rel="noopener noreferrer"
               className="block text-center bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium px-6 py-3 rounded-full shadow-lg transition"

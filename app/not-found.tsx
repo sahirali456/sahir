@@ -15,9 +15,8 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
       <div
-        className={`max-w-2xl w-full transition-all duration-1000 ${
-          isAnimating ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
+        className={`max-w-2xl w-full transition-all duration-1000 ${isAnimating ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
       >
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="relative h-64 sm:h-80">
@@ -40,8 +39,9 @@ export default function NotFound() {
           <div className="pt-16 pb-8 px-6 text-center">
             <h2 className="text-2xl font-bold mb-2">This Page Does Not Exist</h2>
             <p className="text-gray-600 mb-8">
-              Sorry, the page you are looking for could not be found. It's just an accident that was not intentional.
+              Sorry, the page you are looking for could not be found. It&apos;s just an accident that was not intentional.
             </p>
+
             <Link
               href="/"
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"

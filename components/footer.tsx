@@ -1,7 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import VantaBackground from "./network-background"
-import { Certificate } from "crypto"
 
 export default function Footer() {
   return (

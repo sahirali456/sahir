@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { Mail, Phone, MapPin, Send } from "lucide-react"
-import VantaBackground from "./network-background"
 import { useState } from "react"
 import emailjs from "@emailjs/browser"
 
@@ -23,40 +22,41 @@ export default function ContactSection() {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  // Debug: log env variables
-  console.log(
-    "Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-    "Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-    "Public Key:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-  );
-
-  try {
-    await emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-      {
-        from_name: formData.name,
-        reply_to: formData.email,
-        subject: formData.subject,
-        message: formData.message
-      },
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+    // Debug: log env variables
+    console.log(
+      "Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      "Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+      "Public Key:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
     );
 
-    setSubmitMessage("✅ Your message was sent successfully.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  } catch (error: any) {
-    console.error("EmailJS error:", error);
-    setSubmitMessage(`❌ Failed to send message: ${error?.text || error?.message || "Unknown error"}`);
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      setSubmitMessage("✅ Your message was sent successfully.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "message" in error) {
+        setSubmitMessage(`❌ Failed to send message: ${(error as { message: string }).message}`);
+      } else {
+        setSubmitMessage("❌ Failed to send message: Unknown error");
+      }
+    }
   }
 
-  setIsSubmitting(false);
-  setTimeout(() => setSubmitMessage(""), 5000);
-};
   return (
     <section id="contact" className="relative z-10 py-24">
       <div className="container-custom">
@@ -67,8 +67,9 @@ const handleSubmit = async (e: React.FormEvent) => {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto mb-4"></div>
           <p className="text-white/80">
-            Have a project in mind? Let's build something amazing together.
+            Have a project in mind? Let&apos;s build something amazing together.
           </p>
+
         </div>
 
         {/* Main Grid */}
@@ -157,50 +158,50 @@ const handleSubmit = async (e: React.FormEvent) => {
             </form>
           </div>
 
-         {/* Contact Info */}
-            <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 p-8 rounded-2xl border border-white/20 text-white shadow-lg">
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                {/* Email */}
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white/20 p-3 rounded-lg">
-                    <Mail className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Email</h4>
-                    <p className="mt-1 text-white/80">syedsahirali639@gmail.com</p>
-                  </div>
+          {/* Contact Info */}
+          <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 p-8 rounded-2xl border border-white/20 text-white shadow-lg">
+            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+            <div className="space-y-6">
+              {/* Email */}
+              <div className="flex gap-4 items-start">
+                <div className="bg-white/20 p-3 rounded-lg">
+                  <Mail className="w-6 h-6" />
                 </div>
-
-                {/* Phone */}
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white/20 p-3 rounded-lg">
-                    <Phone className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Call</h4>
-                    <p className="mt-1 text-white/80">+92 321 3574864</p>
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white/20 p-3 rounded-lg">
-                    <MapPin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Location</h4>
-                    <p className="mt-1 text-white/80">Karachi,</p>
-                    <p className="text-white/80">Pakistan</p>
-                  </div>
+                <div>
+                  <h4 className="font-semibold">Email</h4>
+                  <p className="mt-1 text-white/80">syedsahirali639@gmail.com</p>
                 </div>
               </div>
 
-              {/* Socials */}
-              <div className="mt-12">
-                <h4 className="font-semibold mb-4">Follow Us</h4>
-                
-                <div className="flex gap-4">
+              {/* Phone */}
+              <div className="flex gap-4 items-start">
+                <div className="bg-white/20 p-3 rounded-lg">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Call</h4>
+                  <p className="mt-1 text-white/80">+92 321 3574864</p>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className="flex gap-4 items-start">
+                <div className="bg-white/20 p-3 rounded-lg">
+                  <MapPin className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-semibold">Location</h4>
+                  <p className="mt-1 text-white/80">Karachi,</p>
+                  <p className="text-white/80">Pakistan</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Socials */}
+            <div className="mt-12">
+              <h4 className="font-semibold mb-4">Follow Us</h4>
+
+              <div className="flex gap-4">
                 {/* GitHub */}
                 <a
                   href="https://github.com/sahirali456"
@@ -255,8 +256,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </svg>
                 </a>
               </div>
-              </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
